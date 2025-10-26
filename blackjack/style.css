@@ -1,0 +1,218 @@
+:root {
+    --table-color: #0a4a1c;
+    --border-color: #d4af37;
+    --text-color: #ffffff;
+    --card-bg: #f8f8f8;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle, #256a37, var(--table-color));
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.game-container {
+    width: 95%;
+    max-width: 900px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 3px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px var(--shadow-color);
+}
+
+.bank-info {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.game-board {
+    position: relative;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hand-area {
+    margin: 15px 0;
+}
+
+.hand-area h2 {
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.hand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 125px; /* Card height + padding */
+}
+
+/* Card Styling */
+.card {
+    width: 80px;
+    height: 115px;
+    background-color: var(--card-bg);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 3px 3px 8px var(--shadow-color);
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Animation setup */
+    transform: translateY(-200%) scale(0.5);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+}
+
+.card.visible {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.card.red { color: #d90429; }
+.card.black { color: #1c1c1c; }
+
+.card .suit {
+    position: absolute;
+    font-size: 1.2rem;
+}
+.card .top { top: 5px; left: 8px; }
+.card .bottom { bottom: 5px; right: 8px; transform: rotate(180deg); }
+
+/* Card Back */
+.card.hidden {
+    background: linear-gradient(135deg, #4a90e2, #295280);
+    color: transparent;
+}
+.card.hidden::before {
+    content: 'BJ';
+    position: absolute;
+    color: var(--border-color);
+    font-size: 2rem;
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Controls Styling */
+.controls {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#betting-controls, #action-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.controls button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.controls button:hover:not(:disabled) {
+    background-color: var(--border-color);
+    color: var(--table-color);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+}
+
+.controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.controls input[type="number"] {
+    width: 80px;
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+/* Message Overlay Styling */
+#message-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    
+    /* Animation setup */
+    opacity: 0;
+    transform: scale(1.2);
+    transition: all 0.4s ease-in-out;
+}
+
+#message-overlay:not(.hidden) {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#message-text {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 3px 3px 8px #000;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
